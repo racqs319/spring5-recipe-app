@@ -18,7 +18,7 @@ public class Notes {
 	private Recipe recipe;
 	
 	@Lob
-	private String description;
+	private String recipeNotes;
 	
 	public Long getId() {
 		return id;
@@ -32,11 +32,11 @@ public class Notes {
 	public void setRecipe(Recipe recipe) {
 		this.recipe = recipe;
 	}
-	public String getDescription() {
-		return description;
+	public String getRecipeNotes() {
+		return recipeNotes;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setRecipeNotes(String recipeNotes) {
+		this.recipeNotes = recipeNotes;
 	}
 
 }

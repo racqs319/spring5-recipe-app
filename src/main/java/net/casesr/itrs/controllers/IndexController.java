@@ -3,34 +3,28 @@ package net.casesr.itrs.controllers;
 import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import net.casesr.itrs.domain.Category;
 import net.casesr.itrs.domain.UnitOfMeasure;
 import net.casesr.itrs.repositories.CategoryRepository;
 import net.casesr.itrs.repositories.UnitOfMeasureRepository;
+import net.casesr.itrs.services.RecipeService;
 
 @Controller
 public class IndexController {
 	
-	private final CategoryRepository categoryRepository;
-	private final UnitOfMeasureRepository unitOfMeasureRepository;
+	private final RecipeService recipeService;
 	
-	
-	
-	public IndexController(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
+	public IndexController(RecipeService recipeService) {
 		super();
-		this.categoryRepository = categoryRepository;
-		this.unitOfMeasureRepository = unitOfMeasureRepository;
+		this.recipeService = recipeService;
 	}
 
 	@GetMapping({"", "/", "/index", "/index.html"})
-	public String getIndexPage() {
-		Optional<Category> categoryOptional = categoryRepository.findByDescription("American");
-		Optional<UnitOfMeasure> uomOptional = unitOfMeasureRepository.findByDescription("Teaspoon");
-		
-		System.out.println("Cat id is: " + categoryOptional.get().getId());
-		System.out.println("UOM id is: " + uomOptional.get().getId());
+	public String getIndexPage(Model model) {
+		model.addAttribute("recipes", recipeService.getRecipes());
 		
 		return "index";
 	}
