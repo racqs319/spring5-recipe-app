@@ -1,4 +1,4 @@
-package net.casesr.itrs;
+package net.casesr.recipeapp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

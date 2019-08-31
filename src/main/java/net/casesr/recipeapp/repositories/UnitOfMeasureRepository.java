@@ -1,10 +1,10 @@
-package net.casesr.itrs.repositories;
+package net.casesr.recipeapp.repositories;
 
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 
-import net.casesr.itrs.domain.UnitOfMeasure;
+import net.casesr.recipeapp.domain.UnitOfMeasure;
 
 public interface UnitOfMeasureRepository extends CrudRepository<UnitOfMeasure, Long> {
 	

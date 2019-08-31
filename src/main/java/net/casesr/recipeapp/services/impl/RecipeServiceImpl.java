@@ -1,14 +1,16 @@
-package net.casesr.itrs.services.impl;
+package net.casesr.recipeapp.services.impl;
 
 import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
-import net.casesr.itrs.domain.Recipe;
-import net.casesr.itrs.repositories.RecipeRepository;
-import net.casesr.itrs.services.RecipeService;
+import lombok.extern.slf4j.Slf4j;
+import net.casesr.recipeapp.domain.Recipe;
+import net.casesr.recipeapp.repositories.RecipeRepository;
+import net.casesr.recipeapp.services.RecipeService;
 
+@Slf4j
 @Service
 public class RecipeServiceImpl implements RecipeService {
 	
@@ -20,6 +22,8 @@ public class RecipeServiceImpl implements RecipeService {
 	}
 	@Override
 	public Set<Recipe> getRecipes() {
+		log.debug("In RecipeServiceImpl.getRecipes(");
+		
 		Set<Recipe> recipeSet = new HashSet<>();
 		recipeRepository.findAll().iterator().forEachRemaining(recipeSet::add);
 		

@@ -1,8 +1,8 @@
-package net.casesr.itrs.services;
+package net.casesr.recipeapp.services;
 
 import java.util.Set;
 
-import net.casesr.itrs.domain.Recipe;
+import net.casesr.recipeapp.domain.Recipe;
 
 public interface RecipeService {
 	

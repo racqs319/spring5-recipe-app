@@ -1,4 +1,4 @@
-package net.casesr.itrs.domain;
+package net.casesr.recipeapp.domain;
 
 public enum Difficulty {
 	

@@ -1,4 +1,4 @@
-package net.casesr.itrs;
+package net.casesr.recipeapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

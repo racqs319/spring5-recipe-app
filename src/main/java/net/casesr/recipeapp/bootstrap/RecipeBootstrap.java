@@ -1,4 +1,4 @@
-package net.casesr.itrs.bootstrap;
+package net.casesr.recipeapp.bootstrap;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -8,17 +8,20 @@ import java.util.Optional;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import net.casesr.itrs.domain.Category;
-import net.casesr.itrs.domain.Difficulty;
-import net.casesr.itrs.domain.Ingredient;
-import net.casesr.itrs.domain.Notes;
-import net.casesr.itrs.domain.Recipe;
-import net.casesr.itrs.domain.UnitOfMeasure;
-import net.casesr.itrs.repositories.CategoryRepository;
-import net.casesr.itrs.repositories.RecipeRepository;
-import net.casesr.itrs.repositories.UnitOfMeasureRepository;
+import lombok.extern.slf4j.Slf4j;
+import net.casesr.recipeapp.domain.Category;
+import net.casesr.recipeapp.domain.Difficulty;
+import net.casesr.recipeapp.domain.Ingredient;
+import net.casesr.recipeapp.domain.Notes;
+import net.casesr.recipeapp.domain.Recipe;
+import net.casesr.recipeapp.domain.UnitOfMeasure;
+import net.casesr.recipeapp.repositories.CategoryRepository;
+import net.casesr.recipeapp.repositories.RecipeRepository;
+import net.casesr.recipeapp.repositories.UnitOfMeasureRepository;
 
+@Slf4j
 @Component
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 	
@@ -34,6 +37,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 	}
 
 	@Override
+	@Transactional
 	public void onApplicationEvent(ContextRefreshedEvent event) {
 		recipeRepository.saveAll(getRecipes());
 	}
@@ -43,6 +47,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         List<Recipe> recipes = new ArrayList<>(2);
 
         //get UOMs
+        log.debug("Create UniyOfMeasurement objects");
         Optional<UnitOfMeasure> eachUomOptional = unitOfMeasureRepository.findByDescription("Each");
 
         if(!eachUomOptional.isPresent()){
@@ -88,6 +93,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         UnitOfMeasure cupsUom = cupsUomOptional.get();
 
         //get Categories
+        log.debug("Create Categories");
         Optional<Category> americanCategoryOptional = categoryRepository.findByDescription("American");
 
         if(!americanCategoryOptional.isPresent()){

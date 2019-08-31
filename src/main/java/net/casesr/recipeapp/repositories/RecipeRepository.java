@@ -1,8 +1,8 @@
-package net.casesr.itrs.repositories;
+package net.casesr.recipeapp.repositories;
 
 import org.springframework.data.repository.CrudRepository;
 
-import net.casesr.itrs.domain.Recipe;
+import net.casesr.recipeapp.domain.Recipe;
 
 public interface RecipeRepository extends CrudRepository<Recipe, Long> {
 

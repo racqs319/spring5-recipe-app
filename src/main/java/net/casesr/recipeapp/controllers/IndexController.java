@@ -1,17 +1,13 @@
-package net.casesr.itrs.controllers;
-
-import java.util.Optional;
+package net.casesr.recipeapp.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import net.casesr.itrs.domain.Category;
-import net.casesr.itrs.domain.UnitOfMeasure;
-import net.casesr.itrs.repositories.CategoryRepository;
-import net.casesr.itrs.repositories.UnitOfMeasureRepository;
-import net.casesr.itrs.services.RecipeService;
+import lombok.extern.slf4j.Slf4j;
+import net.casesr.recipeapp.services.RecipeService;
 
+@Slf4j
 @Controller
 public class IndexController {
 	
@@ -24,6 +20,7 @@ public class IndexController {
 
 	@GetMapping({"", "/", "/index", "/index.html"})
 	public String getIndexPage(Model model) {
+		log.debug("Add list of recipes in index page");
 		model.addAttribute("recipes", recipeService.getRecipes());
 		
 		return "index";
