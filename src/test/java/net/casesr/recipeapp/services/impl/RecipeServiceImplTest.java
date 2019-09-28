@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import net.casesr.recipeapp.commands.RecipeCommand;
 import net.casesr.recipeapp.converters.RecipeCommandToRecipe;
 import net.casesr.recipeapp.converters.RecipeToRecipeCommand;
 import org.junit.jupiter.api.BeforeEach;
@@ -65,6 +66,26 @@ class RecipeServiceImplTest {
 		Recipe recipeReturned = recipeService.findById(1L);
 
 		assertNotNull(recipeReturned,"Null recipe returned");
+		verify(recipeRepository, times(1)).findById(anyLong());
+		verify(recipeRepository, never()).findAll();
+	}
+
+	@Test
+	public void testGetRecipeCommandById() throws Exception {
+		Recipe recipe = new Recipe();
+		recipe.setId(1L);
+		Optional<Recipe> recipeOptional = Optional.of(recipe);
+
+		when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+		RecipeCommand recipeCommand = new RecipeCommand();
+		recipeCommand.setId(1L);
+
+		when(recipeToRecipeCommand.convert(any())).thenReturn(recipeCommand);
+
+		RecipeCommand commandById = recipeService.findCommandById(1L);
+
+		assertNotNull(commandById, "Null recipe returned");
 		verify(recipeRepository, times(1)).findById(anyLong());
 		verify(recipeRepository, never()).findAll();
 	}
