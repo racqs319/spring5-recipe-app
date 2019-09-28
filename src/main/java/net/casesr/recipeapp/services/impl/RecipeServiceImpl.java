@@ -40,7 +40,12 @@ public class RecipeServiceImpl implements RecipeService {
 		return recipeSet;
 	}
 
-	@Override
+    @Override
+    public void deleteById(Long id) {
+        recipeRepository.deleteById(id);
+    }
+
+    @Override
 	public Recipe findById(Long id) {
 		Optional<Recipe> recipeOptional = recipeRepository.findById(id);
 
