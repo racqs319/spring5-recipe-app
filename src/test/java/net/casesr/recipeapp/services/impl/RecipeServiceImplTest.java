@@ -8,6 +8,8 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
+import net.casesr.recipeapp.converters.RecipeCommandToRecipe;
+import net.casesr.recipeapp.converters.RecipeToRecipeCommand;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -23,11 +25,17 @@ class RecipeServiceImplTest {
 	@Mock
 	RecipeRepository recipeRepository;
 
+	@Mock
+	RecipeCommandToRecipe recipeCommandToRecipe;
+
+	@Mock
+	RecipeToRecipeCommand recipeToRecipeCommand;
+
 	@BeforeEach
 	void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
 		
-		recipeService = new RecipeServiceImpl(recipeRepository);
+		recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
 		
 	}
 
