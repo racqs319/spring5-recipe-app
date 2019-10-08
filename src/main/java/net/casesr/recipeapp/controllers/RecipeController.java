@@ -2,10 +2,13 @@ package net.casesr.recipeapp.controllers;
 
 import lombok.extern.slf4j.Slf4j;
 import net.casesr.recipeapp.commands.RecipeCommand;
+import net.casesr.recipeapp.exceptions.NotFoundException;
 import net.casesr.recipeapp.services.RecipeService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @Controller
@@ -51,5 +54,17 @@ public class RecipeController {
 
         recipeService.deleteById(Long.valueOf(id));
         return "redirect:/";
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(NotFoundException.class)
+    public ModelAndView handleNotFound() {
+        log.debug("Handle NotFoundException");
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName("404error");
+
+        return modelAndView;
     }
 }
