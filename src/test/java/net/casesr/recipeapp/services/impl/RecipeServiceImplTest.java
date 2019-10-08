@@ -11,6 +11,7 @@ import java.util.Set;
 import net.casesr.recipeapp.commands.RecipeCommand;
 import net.casesr.recipeapp.converters.RecipeCommandToRecipe;
 import net.casesr.recipeapp.converters.RecipeToRecipeCommand;
+import net.casesr.recipeapp.exceptions.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -68,6 +69,21 @@ class RecipeServiceImplTest {
 		assertNotNull(recipeReturned,"Null recipe returned");
 		verify(recipeRepository, times(1)).findById(anyLong());
 		verify(recipeRepository, never()).findAll();
+	}
+
+	@Test
+	public void testGetRecipeByIdNotFound() throws Exception {
+		Optional<Recipe> recipeOptional = Optional.empty();
+
+		when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+		Throwable exception = assertThrows(NotFoundException.class, () -> {
+			recipeService.findById(1L);
+		});
+
+		assertEquals("Recipe not found", exception.getMessage());
+
+		//should go boom
 	}
 
 	@Test
